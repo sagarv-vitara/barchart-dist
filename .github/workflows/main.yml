@@ -15,13 +15,12 @@ jobs:
 
       - name: Build and Deploy
         run: |
-          mkdir dist
-          cp -R * dist/
-          echo "Your custom domain or GitHub Pages URL" > dist/CNAME
+          mkdir deploy
+          rsync -av --exclude=deploy/ ./ deploy/
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
           branch: gh-pages
-          folder: dist
+          folder: deploy
           token: ${{ secrets.GITHUB_TOKEN }}
